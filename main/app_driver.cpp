@@ -91,6 +91,9 @@ esp_err_t app_driver_attribute_update(app_driver_handle_t driver_handle, uint16_
         } else if (cluster_id == LevelControl::Id) {
             if (attribute_id == LevelControl::Attributes::CurrentLevel::Id) {
                 err = app_driver_light_set_brightness(handle, val);
+                if (current_x > 0 || current_y > 0) {
+                    err |= app_driver_light_set_xy(handle, current_x, current_y);
+                }
             }
         } else if (cluster_id == ColorControl::Id) {
             if (attribute_id == ColorControl::Attributes::CurrentHue::Id) {
